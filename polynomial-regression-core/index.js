@@ -4,6 +4,8 @@ import {plotData, plotDataAndPredictions, renderCoefficients} from './ui';
 
 /**
  * https://www.w3cschool.cn/tensorflowjs/tensorflowjs-y6kx2q2c.html
+ * https://js.tensorflow.org/tutorials/fit-curve.html
+ *
  * We want to learn the coefficients that give correct solutions to the
  * following cubic equation:
  * 我们想要学习能够为其提供正确解决方案的系数以下方程式：
@@ -51,7 +53,7 @@ const optimizer = tf.train.sgd(learningRate); // SGD 优化器
 // 写下我们的培训流程功能。
 
 /*
- *  预测函数: 建立模型
+ *  预测函数: 构建模型
  * This function represents our 'model'. Given an input 'x' it will try and
  * predict the appropriate output 'y'.
  * 此功能代表我们的“模型”。 给定输入'x'将尝试和预测适当的输出'y'。
@@ -63,12 +65,12 @@ const optimizer = tf.train.sgd(learningRate); // SGD 优化器
  * @return number predicted y value  数字预测y值
  */
 function predict(x) {
-  // y = a * x ^ 3 + b * x ^ 2 + c * x + d
+    // y = a * x ^ 3 + b * x ^ 2 + c * x + d
   return tf.tidy(() => { // tidy函数进行内存管理,其作用:为执行一个函数并清除所有创建的中间张量
-    return a.mul(x.pow(tf.scalar(3, 'int32')))
-      .add(b.mul(x.square()))
-      .add(c.mul(x))
-      .add(d);
+    return a.mul(x.pow(tf.scalar(3, 'int32'))) // a * x^3
+      .add(b.mul(x.square())) // + b * x ^ 2
+      .add(c.mul(x)) // + c * x
+      .add(d); // + d
   });
 }
 
@@ -122,8 +124,8 @@ async function train(xs, ys, numIterations) {
     optimizer.minimize(() => { // 每次迭代调用optimizer优化器的minimize函数
       // Feed the examples into the model
       //   将示例提供给模型
-      const pred = predict(xs);
-      return loss(pred, ys);
+      const pred = predict(xs); // 进行预测
+      return loss(pred, ys); // 返回损失值
     });
 
     // Use tf.nextFrame to not block the browser.
@@ -132,8 +134,9 @@ async function train(xs, ys, numIterations) {
   }
 }
 
+// 学习系数
 async function learnCoefficients() {
-  const trueCoefficients = {a: -.8, b: -.2, c: .9, d: .5};
+  const trueCoefficients = {a: -.8, b: -.2, c: .9, d: .5}; // 原始系数
   const trainingData = generateData(100, trueCoefficients);
 
   // Plot original data
@@ -149,7 +152,9 @@ async function learnCoefficients() {
     c: c.dataSync()[0],
     d: d.dataSync()[0],
   });
-  const predictionsBefore = predict(trainingData.xs);
+  // 预测前
+  const predictionsBefore = predict(trainingData.xs); // 进行预测
+  // 并预测
   await plotDataAndPredictions(
       '#random .plot', trainingData.xs, trainingData.ys, predictionsBefore);
 
@@ -165,7 +170,8 @@ async function learnCoefficients() {
     c: c.dataSync()[0],
     d: d.dataSync()[0],
   });
-  const predictionsAfter = predict(trainingData.xs);
+  // 预测后
+  const predictionsAfter = predict(trainingData.xs); // 进行预测
   await plotDataAndPredictions(
       '#trained .plot', trainingData.xs, trainingData.ys, predictionsAfter);
 

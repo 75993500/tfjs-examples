@@ -1,5 +1,12 @@
 import * as tf from '@tensorflow/tfjs';
 
+/**
+ * 生成随机数据
+ * @param numPoints
+ * @param coeff
+ * @param sigma
+ * @returns {{xs: Tensor<Rank>, ys: Tensor}}
+ */
 export function generateData(numPoints, coeff, sigma = 0.04) {
   return tf.tidy(() => {
     const [a, b, c, d] = [
@@ -7,6 +14,7 @@ export function generateData(numPoints, coeff, sigma = 0.04) {
       tf.scalar(coeff.d)
     ];
 
+    // 随机均匀数据
     const xs = tf.randomUniform([numPoints], -1, 1);
 
     // Generate polynomial data
