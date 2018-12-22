@@ -17,6 +17,7 @@ const MNIST_LABELS_PATH =
 /**
  * A class that fetches the sprited MNIST dataset and provide data as
  * tf.Tensors.
+ * 获取sprited MNIST数据集并提供数据的类
  */
 export class MnistData {
   constructor() {}
@@ -52,6 +53,7 @@ export class MnistData {
           for (let j = 0; j < imageData.data.length / 4; j++) {
             // All channels hold an equal value since the image is grayscale, so
             // just read the red channel.
+            //   由于图像是灰度级，因此所有通道都保持相同的值刚看完红色通道。
             datasetBytesView[j] = imageData.data[j * 4] / 255;
           }
         }
@@ -80,10 +82,10 @@ export class MnistData {
 
   /**
    * Get all training data as a data tensor and a labels tensor.
-   *
+   * 获取所有训练数据作为数据张量和标签张量。
    * @returns
-   *   xs: The data tensor, of shape `[numTrainExamples, 28, 28, 1]`.
-   *   labels: The one-hot encoded labels tensor, of shape
+   *   xs: The data tensor, of shape `[numTrainExamples, 28, 28, 1]`.  形状的数据张量
+   *   labels: The one-hot encoded labels tensor, of shape  单热编码标签张量，形状
    *     `[numTrainExamples, 10]`.
    */
   getTrainData() {
@@ -97,10 +99,12 @@ export class MnistData {
 
   /**
    * Get all test data as a data tensor a a labels tensor.
+   * 获取所有测试数据作为数据张量和标签张量。
    *
    * @param {number} numExamples Optional number of examples to get. If not
    *     provided,
    *   all test examples will be returned.
+   *   numExamples要获取的可选示例数。 如果没有提供，将返回所有测试示例。
    * @returns
    *   xs: The data tensor, of shape `[numTestExamples, 28, 28, 1]`.
    *   labels: The one-hot encoded labels tensor, of shape
