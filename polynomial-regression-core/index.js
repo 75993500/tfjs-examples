@@ -159,7 +159,7 @@ async function learnCoefficients() {
       '#random .plot', trainingData.xs, trainingData.ys, predictionsBefore);
 
   // Train the model!
-  //   训练模型！
+  //   训练模型, 循环迭代
   await train(trainingData.xs, trainingData.ys, numIterations);
 
   // See what the final results predictions are after training.
