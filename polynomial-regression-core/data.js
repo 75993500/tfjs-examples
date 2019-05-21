@@ -42,3 +42,18 @@ export function generateData(numPoints, coeff, sigma = 0.04) {
     };
   })
 }
+/*
+randomUniform 函数简介:
+从均匀分布中返回随机值
+random_uniform(
+    shape,# 生成的张量的形状
+    minval=0,
+    maxval=None,
+    dtype=tf.float32,
+    seed=None,
+    name=None)
+返回值的范围默认是0到1的左闭右开区间，即[0，1)。
+minval为指定最小边界，默认为1。
+maxval为指定的最大边界，
+如果是数据浮点型则默认为1，如果数据为整形则必须指定。
+ */

@@ -42,7 +42,7 @@ const d = tf.variable(tf.scalar(Math.random()));
 // 创建一个优化器，稍后我们将使用它。 你可以玩使用其中一些值来查看模型的执行情况。
 // SGD （Stochastic Gradient Descent）优化器，即随机梯度下降。SGD的工作原理就是利用数据中任意的点的梯度
 // 以及使用它们的值来决定增加或者减少我们模型中系数的值。
-const numIterations = 75;
+const numIterations = 75; // 制定的迭代次数
 // 学习率（learning rate）会控制模型调整幅度将会有多大。低的学习率会使得学习过程运行的更慢一些
 // （更多的训练迭代获得更符合数据的系数），而高的学习率将会加速学习过程但是将会导致最终的模型可能在正确值周围摇摆。
 // 简单的说，你既想要学的快，又想要学的好，这是不可能的。
@@ -94,7 +94,7 @@ function loss(prediction, labels) {
   // 将labels（实际的值）进行抽象,然后获取平均数.
   // square() 平方函数
   // mean() 平均值函数
-  const error = prediction.sub(labels).square().mean();
+  const error = prediction.sub(labels).square().mean(); // (prediction - labels) ^ 2
   return error;
 }
 
